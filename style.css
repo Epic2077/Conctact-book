@@ -87,6 +87,8 @@ input {
 }
 .list {
   padding: 0 1vw;
+  height: 20vw;
+  overflow-y: scroll;
 }
 .contact {
   color: #c9c9c9;
@@ -99,7 +101,7 @@ input {
   gap: 1vw;
 }
 .p-name {
-  display: flex;
+  display: grid;
   gap: 10px;
   width: max-content;
   height: 2vw;
@@ -109,7 +111,8 @@ input {
   background-color: antiquewhite;
   width: 35px;
   height: 35px;
-  display: grid;
+  display: flex;
+
   justify-content: center;
   align-items: center;
   border-radius: 100%;
@@ -128,4 +131,10 @@ input {
 }
 .p-number {
   font-size: 1.5rem;
+}
+.p-flex {
+  display: flex;
+  height: 2vw;
+  gap: 10px;
+  align-items: center;
 }

@@ -9,12 +9,11 @@ const userAmounts = () => {
   }
 };
 
-function showPpl() {
+function showPpl(filteredUsers = users) {
   const avatar = document.getElementById("p-name");
   avatar.innerHTML = ""; // Clear existing content before appending
 
-  for (let i = 0; i < users.length; i++) {
-    let user = users[i];
+  filteredUsers.forEach((user) => {
     let divOne = document.createElement("div");
     divOne.classList.add("p-flex");
 
@@ -29,14 +28,14 @@ function showPpl() {
       <p class="p-f-name">${user.FirsName} ${user.LastName}</p>
     `;
     avatar.append(divOne);
-  }
+  });
 }
 
-function showNumber() {
+function showNumber(filteredUsers = users) {
   const phoneContainer = document.getElementById("p-phone");
+  phoneContainer.innerHTML = ""; // Clear existing content before appending
 
-  for (let i = 0; i < users.length; i++) {
-    let user = users[i];
+  filteredUsers.forEach((user) => {
     let phoneNumber = user.Number;
     let cleanNumber = phoneNumber.split("x")[0].trim();
     let divOne = document.createElement("p");
@@ -44,14 +43,15 @@ function showNumber() {
     divOne.classList.add("p-flex");
     divOne.textContent = `${cleanNumber}`;
     phoneContainer.append(divOne);
-  }
+  });
 }
 
-const desplayUsers = () => {
-  if (users.length === 0) {
+const desplayUsers = (filteredUsers = users) => {
+  if (filteredUsers.length === 0) {
     document.getElementById("user").innerHTML = "No contacts found!";
   } else {
-    showPpl();
+    showPpl(filteredUsers);
+    showNumber(filteredUsers);
   }
 };
 
@@ -66,8 +66,30 @@ fetch("https://671cf16209103098807bb538.mockapi.io/Users")
     users = data;
     userAmounts();
     desplayUsers();
-    showNumber();
   })
   .catch((error) => {
     console.error("Error fetching users:", error);
   });
+
+function searchSystem() {
+  let query = document.getElementById("search").value.toLowerCase();
+  let matchingUsers = users.filter((user) => {
+    let firstName = user.FirsName.toLowerCase();
+    let lastName = user.LastName.toLowerCase();
+    let fullName = `${firstName} ${lastName}`;
+    let number = user.Number;
+
+    return (
+      firstName.includes(query) ||
+      lastName.includes(query) ||
+      fullName.includes(query) ||
+      number.includes(query)
+    );
+  });
+
+  // Display the matched users
+  desplayUsers(matchingUsers);
+}
+
+// Attach the search system to the search input
+document.getElementById("search").addEventListener("input", searchSystem);

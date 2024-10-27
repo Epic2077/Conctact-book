@@ -106,13 +106,13 @@ input {
   width: max-content;
   height: 2vw;
   align-items: center;
+  width: 30vw;
 }
 .circle {
   background-color: antiquewhite;
   width: 35px;
   height: 35px;
   display: flex;
-
   justify-content: center;
   align-items: center;
   border-radius: 100%;
@@ -129,6 +129,9 @@ input {
 .p-f-name {
   font-size: 1.5rem;
 }
+.p-phone {
+  display: grid;
+}
 .p-number {
   font-size: 1.5rem;
 }
@@ -137,4 +140,10 @@ input {
   height: 2vw;
   gap: 10px;
   align-items: center;
+  width: 100%;
+  border: 1px solid #c9c9c9;
+  padding: 25px 5px;
+  border-left: 0;
+  border-right: 0;
+  border-top: 0;
 }

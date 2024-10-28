@@ -11,29 +11,31 @@ const userAmounts = () => {
 
 function showPpl(filteredUsers = users) {
   const avatar = document.getElementById("p-name");
-  avatar.innerHTML = ""; // Clear existing content before appending
+  avatar.innerHTML = "";
 
   filteredUsers.forEach((user) => {
     let divOne = document.createElement("div");
     divOne.classList.add("p-flex");
 
-    // Get the first letter of the first name
     const firstLetter = user.FirsName ? user.FirsName[0] : "?";
 
-    // Add an image with an onerror fallback
     divOne.innerHTML = `
       <div class="circle">
         <img src="${user.Avatar}" width="max-content" onerror="this.style.display='none'; this.parentElement.innerHTML = '<p>${firstLetter}</p>'" />
       </div>
       <p class="p-f-name">${user.FirsName} ${user.LastName}</p>
     `;
+
+    divOne.addEventListener("click", () => {
+      window.location.href = `user-detail.html?id=${user.id}`;
+    });
     avatar.append(divOne);
   });
 }
 
 function showNumber(filteredUsers = users) {
   const phoneContainer = document.getElementById("p-phone");
-  phoneContainer.innerHTML = ""; // Clear existing content before appending
+  phoneContainer.innerHTML = "";
 
   filteredUsers.forEach((user) => {
     let phoneNumber = user.Number;
@@ -87,9 +89,7 @@ function searchSystem() {
     );
   });
 
-  // Display the matched users
   desplayUsers(matchingUsers);
 }
 
-// Attach the search system to the search input
 document.getElementById("search").addEventListener("input", searchSystem);
